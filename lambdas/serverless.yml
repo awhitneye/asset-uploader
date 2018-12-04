@@ -47,3 +47,10 @@ functions:
           method: put
           authorizer:
             arn: arn:aws:cognito-idp:us-east-2:359408009404:userpool/us-east-2_NjssQur0f
+
+resources:
+  Resources:
+    ApiGatewayRestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: ${self:service}-${self:stage}
