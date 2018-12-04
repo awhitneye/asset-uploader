@@ -11,16 +11,8 @@
 #retrieve the Root url for each endpoint after deploy.  This will consist of the 'root url', appended with either /asset or /asset/{some_informaion}.  Update env.js similar to the following example (with your own root):
  - module.exports = {
     BucketName : '',
-    UserPoolId :'',
-    ClientId : '',
     ApiGatewayRootUrl : 'https://7n9r8esh5k.execute-api.us-east-2.amazonaws.com/dev/',
-    UserPoolArn: ''
     };
-
-## create a user pool to work with, or select one you like. This is for testing.
- - update serverless file authorizer arns to match the arn of user pool
- - update the env.js file accordingly
-
 
 ## create a bucket on the Amazon developer console
  - You must explicitly enable versioning on your bucket. By default, versioning is disabled.
