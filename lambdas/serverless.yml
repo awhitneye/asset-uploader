@@ -1,0 +1,49 @@
+service: andrea-datastax-application
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-east-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:GetObjectVersion
+        - s3:DeleteObject
+        - s3:DeleteObjectVersion
+        - s3:PutObject
+        - s3:PutObjectAcl
+        - s3:PutObjectVersionAcl
+      Resource: '*'
+
+custom:
+  bucket: andrea-datastax
+
+functions:
+  getAssetDownloadUrl:
+    handler: handler.getAssetDownloadUrl
+    events:
+      - http:
+          path: asset/{assetId}
+          method: get
+          authorizer:
+            arn: arn:aws:cognito-idp:us-east-2:359408009404:userpool/us-east-2_NjssQur0f
+
+  createAssetUploadUrl:
+    handler: handler.createAssetUploadUrl
+    events:
+      - http:
+          path: asset/
+          method: post
+          authorizer:
+            arn: arn:aws:cognito-idp:us-east-2:359408009404:userpool/us-east-2_NjssQur0f
+
+  markAssetUploaded:
+    handler: handler.markAssetUploaded
+    events:
+      - http:
+          path: asset/{assetId}
+          method: put
+          authorizer:
+            arn: arn:aws:cognito-idp:us-east-2:359408009404:userpool/us-east-2_NjssQur0f
